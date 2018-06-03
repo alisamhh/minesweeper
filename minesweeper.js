@@ -1,22 +1,11 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
 // Define your `board` object here!
-var board = {
-    cells: [
-        {row: 0, col: 0, isMine: false, isMarked: false, hidden: true},
-        {row: 0, col: 1, isMine: false, isMarked: false, hidden: true},
-        {row: 0, col: 2, isMine: false, isMarked: false, hidden: true},
-        {row: 1, col: 0, isMine: true, isMarked: false, hidden: true},
-        {row: 1, col: 1, isMine: false, isMarked: false, hidden: true},
-        {row: 1, col: 2, isMine: false, isMarked: false, hidden: true},
-        {row: 2, col: 0, isMine: false, isMarked: false, hidden: true},
-        {row: 2, col: 1, isMine: true, isMarked: false, hidden: true},
-        {row: 2, col: 2, isMine: false, isMarked: false, hidden: true}
-    ]
-};
+var board = {};
 
 function startGame () {
-  // Don't remove this function call: it makes the game work!
+    board.cells = generateCells();
+    // Don't remove this function call: it makes the game work!
     for (var i = 0; i < board.cells.length; i++) {
 
         var surroundingMines = countSurroundingMines(board.cells[i]);
@@ -46,9 +35,7 @@ function checkForWin() {
     if (markedMines + unhiddenCells === board.cells.length) {
         lib.displayMessage('You win!');
     }
-    
 }
-
 
 // Define this function to count the number of mines around the cell
 // (there could be as many as 8). You don't have to get the surrounding
@@ -67,4 +54,16 @@ function countSurroundingMines (cell) {
         }
     } 
     return mineCount;
+}
+
+
+function generateCells () {
+    var cells = [];
+    var boardSize = 3;
+    for (var i = 0; i < boardSize; i++) {
+        for (var j = 0; j < boardSize; j++) {
+            cells.push({row: i, col: j, isMine: true, isMarked: false, hidden: true});
+        }
+    }
+    return cells;
 }
